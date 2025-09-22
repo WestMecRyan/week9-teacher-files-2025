@@ -1,0 +1,67 @@
+<!-- views/usersList.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users List</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <h1>Users List</h1>
+    <% if (users && users.length > 0) { %>
+    <ul>
+      <% users.forEach(user=> { %>
+      <li id="user-<%= user.id %>">
+        <div class="user-display" id="display-<%= user.id %>">
+          <strong><%= user.firstName %></strong> -
+          <strong><%= user.lastName || 'LastName' %></strong> -
+          <a href="mailto:<%= user.email %>"><%= user.email %></a> -
+          <a href="tel:<%= user.phone %>"><%= user.phone %></a>
+          <% if (user.id) { %>
+          <button
+            onclick="editUser('<%= user.id %>', '<%= user.firstName %>', '<%= user.lastName %>', '<%= user.email %>', '<%= user.phone %>')"
+          >
+            Edit
+          </button>
+          <button onclick="deleteUser('<%= user.id %>')">delete</button>
+          <% } %>
+        </div>
+        <div class="user-edit" id="edit-<%= user.id %>" style="display: none">
+          <input
+            type="text"
+            id="firstName-<%= user.id %>"
+            value="<%= user.firstName %>"
+            placeholder="First Name"
+          />
+          <input
+            type="text"
+            id="lastName-<%= user.id %>"
+            value="<%= user.lastName %>"
+            placeholder="Last Name"
+          />
+          <input
+            type="email"
+            id="email-<%= user.id %>"
+            value="<%= user.email %>"
+            placeholder="Email"
+          />
+          <input
+            type="tel"
+            id="phone-<%= user.id %>"
+            value="<%= user.phone %>"
+            placeholder="Phone"
+          />
+          <button onclick="updatedUser('<%= user.id %>')">Save</button>
+          <button onclick="cancelEdit('<%= user.id %>')">Cancel</button>
+        </div>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <p>No Users Found</p>
+    <% } %>
+    <a href="/form">Add New User</a>
+    <script src="/userActions.js"></script>
+  </body>
+</html>

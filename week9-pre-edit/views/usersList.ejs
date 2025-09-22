@@ -1,0 +1,32 @@
+<!-- views/usersList.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users List</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <h1>Users List</h1>
+    <% if (users && users.length > 0) { %>
+    <ul>
+      <% users.forEach(user=> { %>
+      <li>
+        <strong><%= user.firstName %></strong> -
+        <strong><%= user.lastName || 'LastName' %></strong> -
+        <a href="mailto:<%= user.email %>"><%= user.email %></a> -
+        <a href="tel:<%= user.phone %>"><%= user.phone %></a>
+        <% if (user.id) { %>
+        <button onclick="deleteUser('<%= user.id %>')">delete</button>
+        <% } %>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <p>No Users Found</p>
+    <% } %>
+    <a href="/form">Add New User</a>
+    <script src="/userActions.js"></script>
+  </body>
+</html>

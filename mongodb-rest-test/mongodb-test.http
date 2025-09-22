@@ -1,0 +1,31 @@
+### Generate JWT token
+POST http://localhost:3000/generate-token
+Content-Type: application/json
+
+{
+    "username": "student123"
+}
+
+### Verify JWT Token (paste token from above)
+POST http://localhost:3000/verify-token
+Content-Type: application/json
+
+{
+    "token": "paste_your_token_here"
+}
+
+### POST route
+POST http://localhost:3000/test-mongodb
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "age": 25
+}
+
+### Get All Test Data
+GET http://localhost:3000/test-data
+
+### Delete Test Data
+DELETE http://localhost:3000/test-data/clear

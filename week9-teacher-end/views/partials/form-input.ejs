@@ -1,0 +1,18 @@
+<!-- views/partials/form-input.ejs -->
+<div class="row">
+  <div class="mb-3">
+    <label for="<%= id %>" class="form-label">
+      <i class="bi bi-<%= icon %> me-1"></i>
+      <%= label %>
+      <% if (required) { %>
+      <span class="text-danger">*</span>
+      <% } %>
+    </label>
+    <div class="custom-validation">
+      <input value="<%= value %>" type="<%= type %>" class="form-control" id="<%= id %>" name="<%= name %>" pattern="<%= pattern %>" aria-describedby="<%= id %>Help" autocomplete="<%= autocomplete %>" <% if (required) { %>required<% } %> />
+      <i class="bi bi-check-circle-fill validation-icon" style="display: none"></i>
+      <div class="invalid-feedback" id="<%= id %>Error"></div>
+    </div>
+    <div id="<%= id %>Help" class="form-text"><%= helpText %></div>
+  </div>
+</div>
