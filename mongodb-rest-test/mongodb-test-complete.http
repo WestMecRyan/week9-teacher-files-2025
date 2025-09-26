@@ -1,0 +1,146 @@
+### ============================================================================
+### CREATE OPERATIONS
+### ============================================================================
+
+### Create one student
+POST http://localhost:3000/test-mongodb
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "age": 25,
+    "major": "Computer Science"
+}
+
+### Create multiple students
+POST http://localhost:3000/test-mongodb/many
+Content-Type: application/json
+
+[
+    {
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "age": 22,
+        "major": "Mathematics"
+    },
+    {
+        "name": "Bob Johnson",
+        "email": "bob@example.com",
+        "age": 24,
+        "major": "Physics"
+    },
+    {
+        "name": "Alice Brown",
+        "email": "alice@example.com",
+        "age": 23,
+        "major": "Chemistry"
+    }
+]
+
+### ============================================================================
+### READ OPERATIONS
+### ============================================================================
+
+### Get all students
+GET http://localhost:3000/test-data
+
+### Get student by ID (replace with actual ID from previous responses)
+GET http://localhost:3000/test-data/65f1234567890abcdef12345
+
+### Find student by email
+GET http://localhost:3000/test-data/find-one/john@example.com
+
+### Search students by age range
+GET http://localhost:3000/test-data/search/age?min=22&max=24
+
+### Count all students
+GET http://localhost:3000/test-data/count/all
+
+### Get collection statistics
+GET http://localhost:3000/test-data/stats
+
+### ============================================================================
+### UPDATE OPERATIONS
+### ============================================================================
+
+### Update student by ID (replace with actual ID)
+PUT http://localhost:3000/test-data/65f1234567890abcdef12345
+Content-Type: application/json
+
+{
+    "name": "John Updated",
+    "age": 26,
+    "major": "Software Engineering"
+}
+
+### Update multiple students (all students with age 25)
+PUT http://localhost:3000/test-data/update-many/age
+Content-Type: application/json
+
+{
+    "filter": { "age": 25 },
+    "update": { "status": "senior" }
+}
+
+### Find and update (returns updated document)
+PUT http://localhost:3000/test-data/65f1234567890abcdef12345/find-update
+Content-Type: application/json
+
+{
+    "name": "John Find-Updated",
+    "age": 27
+}
+
+### Replace entire document (replace with actual ID)
+PUT http://localhost:3000/test-data/65f1234567890abcdef12345/replace
+Content-Type: application/json
+
+{
+    "name": "Completely New Person",
+    "email": "new@example.com",
+    "age": 30,
+    "major": "Art History",
+    "year": "Graduate"
+}
+
+### ============================================================================
+### DELETE OPERATIONS
+### ============================================================================
+
+### Delete student by ID (replace with actual ID)
+DELETE http://localhost:3000/test-data/65f1234567890abcdef12345
+
+### Find and delete (returns deleted document)
+DELETE http://localhost:3000/test-data/65f1234567890abcdef12345/find-delete
+
+### Delete multiple students by criteria
+DELETE http://localhost:3000/test-data/delete-many/age
+Content-Type: application/json
+
+{
+    "filter": { "age": 22 }
+}
+
+### Delete all students (DANGER!)
+DELETE http://localhost:3000/test-data/clear
+
+### ============================================================================
+### JWT OPERATIONS (existing)
+### ============================================================================
+
+### Generate JWT token
+POST http://localhost:3000/generate-token
+Content-Type: application/json
+
+{
+    "username": "student123"
+}
+
+### Verify JWT Token (paste token from above)
+POST http://localhost:3000/verify-token
+Content-Type: application/json
+
+{
+    "token": "paste_your_token_here"
+}

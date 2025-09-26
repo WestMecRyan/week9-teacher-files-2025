@@ -1,0 +1,204 @@
+### ============================================================================
+### CREATE OPERATIONS
+### ============================================================================
+
+### Create one student
+POST http://localhost:3000/students
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "age": 25,
+    "major": "Computer Science"
+}
+
+### Create multiple students
+POST http://localhost:3000/students/bulk
+Content-Type: application/json
+
+[
+    {
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "age": 22,
+        "major": "Mathematics"
+    },
+    {
+        "name": "Bob Johnson",
+        "email": "bob@example.com",
+        "age": 24,
+        "major": "Physics"
+    },
+    {
+        "name": "Alice Brown",
+        "email": "alice@example.com",
+        "age": 23,
+        "major": "Chemistry"
+    }
+]
+
+### ============================================================================
+### READ OPERATIONS
+### ============================================================================
+
+### Get all students
+GET http://localhost:3000/students
+
+### Get student by ID (replace with actual ID)
+GET http://localhost:3000/students/65f1234567890abcdef12345
+
+### Search students by name and age range
+GET http://localhost:3000/students/search?name=John&minAge=20&maxAge=30
+
+### Search by email only
+GET http://localhost:3000/students/search?email=john@example.com
+
+### Find student by email (specific route)
+GET http://localhost:3000/students/by-email/john@example.com
+
+### Advanced query with filters
+POST http://localhost:3000/students/query
+Content-Type: application/json
+
+{
+    "filter": { "age": { "$gte": 22, "$lte": 25 } },
+    "sort": { "age": 1 },
+    "limit": 5
+}
+
+### Count all students
+GET http://localhost:3000/students/count
+
+### Count students by age
+GET http://localhost:3000/students/count?age=25
+
+### Get collection statistics
+GET http://localhost:3000/students/stats
+
+### ============================================================================
+### UPDATE OPERATIONS
+### ============================================================================
+
+### Update student by ID (replace with actual ID)
+PUT http://localhost:3000/students/65f1234567890abcdef12345
+Content-Type: application/json
+
+{
+    "name": "John Updated",
+    "age": 26,
+    "major": "Software Engineering"
+}
+
+### Update and return the updated document
+PUT http://localhost:3000/students/65f1234567890abcdef12345/return
+Content-Type: application/json
+
+{
+    "age": 27,
+    "status": "senior"
+}
+
+### Update multiple students by filter
+PUT http://localhost:3000/students/bulk
+Content-Type: application/json
+
+{
+    "filter": { "age": 25 },
+    "update": { "status": "senior", "year": 4 }
+}
+
+### Replace entire student document (replace with actual ID)
+PUT http://localhost:3000/students/65f1234567890abcdef12345/replace
+Content-Type: application/json
+
+{
+    "name": "Completely New Person",
+    "email": "new@example.com",
+    "age": 30,
+    "major": "Art History",
+    "graduationYear": 2024
+}
+
+### ============================================================================
+### DELETE OPERATIONS
+### ============================================================================
+
+### Delete student by ID (replace with actual ID)
+DELETE http://localhost:3000/students/65f1234567890abcdef12345
+
+### Delete and return the deleted document (replace with actual ID)
+DELETE http://localhost:3000/students/65f1234567890abcdef12345/return
+
+### Delete multiple students by filter
+DELETE http://localhost:3000/students/bulk
+Content-Type: application/json
+
+{
+    "filter": { "age": 22 }
+}
+
+### Delete students by major
+DELETE http://localhost:3000/students/bulk
+Content-Type: application/json
+
+{
+    "filter": { "major": "Physics" }
+}
+
+### Delete ALL students (DANGER!)
+DELETE http://localhost:3000/students/all
+
+### ============================================================================
+### AUTH OPERATIONS
+### ============================================================================
+
+### Generate JWT token
+POST http://localhost:3000/auth/token
+Content-Type: application/json
+
+{
+    "username": "student123"
+}
+
+### Verify JWT Token (paste token from above)
+POST http://localhost:3000/auth/verify
+Content-Type: application/json
+
+{
+    "token": "paste_your_token_here"
+}
+
+### ============================================================================
+### TESTING WORKFLOW
+### ============================================================================
+
+### Step 1: Create some students
+POST http://localhost:3000/students/bulk
+Content-Type: application/json
+
+[
+    {"name": "Test Student 1", "email": "test1@example.com", "age": 20},
+    {"name": "Test Student 2", "email": "test2@example.com", "age": 25},
+    {"name": "Test Student 3", "email": "test3@example.com", "age": 30}
+]
+
+### Step 2: Get all students to see IDs
+GET http://localhost:3000/students
+
+### Step 3: Copy an ID and get that specific student
+# GET http://localhost:3000/students/PASTE_ID_HERE
+
+### Step 4: Update that student
+# PUT http://localhost:3000/students/PASTE_ID_HERE
+# Content-Type: application/json
+#
+# {
+#     "age": 21
+# }
+
+### Step 5: Delete that student
+# DELETE http://localhost:3000/students/PASTE_ID_HERE
+
+### Step 6: Clean up - delete all test data
+DELETE http://localhost:3000/students/all
